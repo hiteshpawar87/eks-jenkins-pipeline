@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building Docker image...'
+        sh 'docker build -t myapp ./pipeline/app'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'Running tests...'
+        sh 'echo "No tests yet."'
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        echo 'Deploying to EKS...'
+        sh 'kubectl apply -f ./pipeline/app/k8s-deployment.yaml'
+      }
+    }
+  }
+}
